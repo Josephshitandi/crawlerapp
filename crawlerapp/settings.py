@@ -149,4 +149,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+cloudinary.config( 
+  cloud_name = "shitandi", 
+  api_key = "196555619145763", 
+  api_secret = "VcygnY36KpV5lamDJolQgBcY334" 
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+LOGOUT_REDIRECT_URL = 'login'
+
+LOGIN_REDIRECT_URL = 'index'
+
+django_heroku.settings(locals())
