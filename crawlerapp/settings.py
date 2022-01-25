@@ -22,13 +22,14 @@ import cloudinary.api
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR=os.path.join(BASE_DIR,'crawler/templates/news').replace('\\','/')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4dvm0b_nzzfmqm!4o!hmojyu#6moie@1cnuf0pws=+1dugc=xe'
+# SECRET_KEY = '4dvm0b_nzzfmqm!4o!hmojyu#6moie@1cnuf0pws=+1dugc=xe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap3',
     'tinymce',
-    'cloudinary',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
