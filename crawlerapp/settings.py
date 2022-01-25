@@ -94,6 +94,11 @@ WSGI_APPLICATION = 'crawlerapp.wsgi.application'
 #     'PASSWORD':'junior',
 #     }
 # }
+
+MODE=config("MODE", default="dev")
+SECRET_KEY = '+&3ku+_xv!p-5+038*0j^t(7_-r0f^=s4+n^hn+2xq7y+z)4=y'
+DEBUG = config('DEBUG', default=False, cast=bool)
+
 # development
 if config('MODE')=="dev":
    DATABASES = {
