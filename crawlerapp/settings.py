@@ -15,13 +15,11 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR=os.path.join(BASE_DIR,'crawler/templates/news').replace('\\','/')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -40,15 +38,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'crawler.apps.CrawlerConfig',
+    'crawler',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap3',
-    'cloudinary'
+    # 'bootstrap3',
+    # 'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -96,6 +94,15 @@ WSGI_APPLICATION = 'crawlerapp.wsgi.application'
 #     }
 # }
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+
 MODE = config("MODE", default="dev")
 SECRET_KEY = '+&3ku+_xv!p-5+038*0j^t(7_-r0f^=s4+n^hn+2xq7y+z)4=y'
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -125,6 +132,8 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+
 # ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'shitandi-crawler.herokuapp.com']
 
 # Password validation
@@ -164,17 +173,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 
-cloudinary.config( 
-  cloud_name = "shitandi", 
-  api_key = "196555619145763", 
-  api_secret = "VcygnY36KpV5lamDJolQgBcY334" 
-)
+# cloudinary.config( 
+#   cloud_name = "shitandi", 
+#   api_key = "196555619145763", 
+#   api_secret = "VcygnY36KpV5lamDJolQgBcY334" 
+# )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -182,5 +191,16 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'index'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_news'),
+]
+
+VENV_PATH = os.path.dirname(BASE_DIR)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(VENV_PATH, 'media_root')
 
 django_heroku.settings(locals())
