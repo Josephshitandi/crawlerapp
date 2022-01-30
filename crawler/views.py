@@ -8,6 +8,15 @@ requests.packages.urllib3.disable_warnings()
 # Create your views here.
 
 
+def news_list(request):
+	headlines = Headline.objects.all()[::-1]
+	context = {
+		'object_list': headlines,
+	}
+	print("Headlines..........", headlines)
+	return render(request, "news/home.html", context)
+
+
 def scrape(request):
 	session = requests.Session()
 	session.headers = {"User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
@@ -16,6 +25,7 @@ def scrape(request):
 	content = session.get(url, verify=False).content
 	soup = BSoup(content, "html.parser")
 	News = soup.find_all('div', {"class":"curation-module__item"})
+	print("this are our newsd", News)
 	for artcile in News:
 		main = artcile.find_all('a')[0]
 		link = main['href']
@@ -25,13 +35,8 @@ def scrape(request):
 		new_headline.title = title
 		new_headline.url = link
 		new_headline.image = image_src
+		print('images.........', new_headline)
 		new_headline.save()
 	return redirect("../")
 
 
-def news_list(request):
-	headlines = Headline.objects.all()[::-1]
-	context = {
-		'object_list': headlines,
-	}
-	return render(request, "news/home.html", context)
